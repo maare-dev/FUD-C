@@ -19,70 +19,74 @@ enum commands{
     C_LOAD // "load" is loading all memory from second given from start file
 };
 
+int switchType(char *command){
+    if (strcmp(command, "+") == 0) return C_ADD;
+    else if (strcmp(command, "-") == 0) return C_SUB;
+    else if (strcmp(command, "=") == 0) return C_EQU;
+    else if (strcmp(command, "out") == 0) return C_OUT;
+    else if (strcmp(command, "in") == 0) return C_IN;
+    else if (strcmp(command, "if") == 0) return C_IF;
+    else if (strcmp(command, "*") == 0) return C_PLACE;
+    else if (strcmp(command, "jump") == 0) return C_JUMP;
+    else if (strcmp(command, "delay") == 0) return C_DELAY;
+    else if (strcmp(command, "save") == 0) return C_SAVE;
+    else if (strcmp(command, "quit") == 0) return C_QUIT;
+    else if (strcmp(command, "draw") == 0) return C_DRAW;
+    else if (strcmp(command, "load") == 0) return C_LOAD;
+    return -1;
+}
 
 void StartCompiling(){
     char *command;
-    int type;
-    while (command = readWord(src_ptr) != NULL){
+    int type = -1;
+    while ((command = readWord(src_ptr)) != NULL){
         type = switchType(command);
 
         switch (type){
             case C_ADD: {
-
+                break;
             }
             case C_SUB: {
-
+                break;
             }
             case C_EQU: {
-                
+                break;
             }
             case C_OUT: {
-                
+                break;
             }
             case C_IN: {
-                
+                break;
             }
             case C_IF: {
-                
+                break;
             }
             case C_PLACE: {
-                
+                break;
             }
             case C_JUMP: {
-                
+                break;
             }
             case C_DELAY: {
-                
+                break;
             }
             case C_SAVE: {
-                
+                break;
             }
             case C_QUIT: {
-                
+                break;
             }
             case C_DRAW: {
-                
+                break;
             }
             case C_LOAD: {
-                
+                break;
+            }
+            default: {
+                fprintf(stderr, "ERR: unknown command %s\n", command);
+                exit(1);
             }
         }
+        free(command);
     }
-}
-int switchType(char *command){
-    int type;
-    if (strcmp(command, "+") == 0) type = C_ADD;
-    else if (strcmp(command, "-") == 0) type = C_SUB;
-    else if (strcmp(command, "=") == 0) type = C_EQU;
-    else if (strcmp(command, "out") == 0) type = C_OUT;
-    else if (strcmp(command, "in") == 0) type = C_IN;
-    else if (strcmp(command, "if") == 0) type = C_IF;
-    else if (strcmp(command, "*") == 0) type = C_PLACE;
-    else if (strcmp(command, "jump") == 0) type = C_JUMP;
-    else if (strcmp(command, "delay") == 0) type = C_DELAY;
-    else if (strcmp(command, "save") == 0) type = C_SAVE;
-    else if (strcmp(command, "quit") == 0) type = C_QUIT;
-    else if (strcmp(command, "draw") == 0) type = C_DRAW;
-    else if (strcmp(command, "load") == 0) type = C_LOAD;
-    return type;
 }
