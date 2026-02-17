@@ -1,0 +1,2 @@
+todo: create files with x11 functions
+todo: write nasm commands for each FUD command
