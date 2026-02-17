@@ -1,0 +1,46 @@
+0	+		c/cc	data
+1	-		c/cc	data
+2	=		c/cc	data	b/c/cc	data
+3	out		b/c/cc	data
+4	in		b/c/cc	data	b/c/cc	data
+5	if		c/cc	data	>=		b/c/cc	data b/c/cc data
+6	*		b/c/cc	data
+7	jump	b/c/cc	data
+8	delay	b/c/cc	data
+9	save
+10	quit	b/c/cc	data
+11	draw
+12	load
+
+ *    screen:
+ * c 255 - point_on_screen_x
+ * c 254 - point_on_screen_y
+ *
+ * c 253 - color_r
+ * c 252 - color_g
+ * c 251 - color_b
+ *
+ *    input:
+ * c 250 - mouse_x
+ * c 249 - mouse_y
+ *
+ * c 248 - mouse_1_status
+ * c 247 - mouse_2_status
+ * c 246 - mouse_3_status
+
+b - const byte
+c - cell of memory
+cc - address of memory cell
+
+FUD is compiling-interpreting language
+FUD-C will be compiling language to exe
+
+example code:
+
+* b 0 ; _start
+out b 48 ; printing '0'
+in b 27 b 1 ; checking ESCAPE key
+delay b 10 ; delay 10 mills
+jump b 0 ; loop
+* b 1 ; end point
+quit b 0 ; exit with code 0
