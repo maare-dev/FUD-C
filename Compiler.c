@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "Main.h"
 
 
@@ -22,6 +23,44 @@ enum commands{
 void StartCompiling(){
     char *command;
     while (command = readWord(src_ptr) != NULL){
+        if (strcmp(command, "+") == 0){
+            
+        }
+        else if (strcmp(command, "-") == 0){
 
+        }
+        else if (strcmp(command, "=") == 0){
+            
+        }
+        else if (strcmp(command, "out") == 0){
+            
+        }
+        else if (strcmp(command, "in") == 0){
+            
+        }
+        else if (strcmp(command, "if") == 0){
+            
+        }
+        else if (strcmp(command, "*") == 0){
+            
+        }
+        else if (strcmp(command, "jump") == 0){
+            
+        }
+        else if (strcmp(command, "delay") == 0){
+            
+        }
+        else if (strcmp(command, "save") == 0){
+            
+        }
+        else if (strcmp(command, "quit") == 0){
+            
+        }
+        else if (strcmp(command, "draw") == 0){
+            
+        }
+        else if (strcmp(command, "load") == 0){
+            
+        }
     }
 }
