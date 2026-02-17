@@ -22,45 +22,67 @@ enum commands{
 
 void StartCompiling(){
     char *command;
+    int type;
     while (command = readWord(src_ptr) != NULL){
-        if (strcmp(command, "+") == 0){
-            
-        }
-        else if (strcmp(command, "-") == 0){
+        type = switchType(command);
 
-        }
-        else if (strcmp(command, "=") == 0){
-            
-        }
-        else if (strcmp(command, "out") == 0){
-            
-        }
-        else if (strcmp(command, "in") == 0){
-            
-        }
-        else if (strcmp(command, "if") == 0){
-            
-        }
-        else if (strcmp(command, "*") == 0){
-            
-        }
-        else if (strcmp(command, "jump") == 0){
-            
-        }
-        else if (strcmp(command, "delay") == 0){
-            
-        }
-        else if (strcmp(command, "save") == 0){
-            
-        }
-        else if (strcmp(command, "quit") == 0){
-            
-        }
-        else if (strcmp(command, "draw") == 0){
-            
-        }
-        else if (strcmp(command, "load") == 0){
-            
+        switch (type){
+            case C_ADD: {
+
+            }
+            case C_SUB: {
+
+            }
+            case C_EQU: {
+                
+            }
+            case C_OUT: {
+                
+            }
+            case C_IN: {
+                
+            }
+            case C_IF: {
+                
+            }
+            case C_PLACE: {
+                
+            }
+            case C_JUMP: {
+                
+            }
+            case C_DELAY: {
+                
+            }
+            case C_SAVE: {
+                
+            }
+            case C_QUIT: {
+                
+            }
+            case C_DRAW: {
+                
+            }
+            case C_LOAD: {
+                
+            }
         }
     }
+}
+int switchType(char *command){
+    int type;
+    if (strcmp(command, "+") == 0) type = C_ADD;
+    else if (strcmp(command, "-") == 0) type = C_SUB;
+    else if (strcmp(command, "=") == 0) type = C_EQU;
+    else if (strcmp(command, "out") == 0) type = C_OUT;
+    else if (strcmp(command, "in") == 0) type = C_IN;
+    else if (strcmp(command, "if") == 0) type = C_IF;
+    else if (strcmp(command, "*") == 0) type = C_PLACE;
+    else if (strcmp(command, "jump") == 0) type = C_JUMP;
+    else if (strcmp(command, "delay") == 0) type = C_DELAY;
+    else if (strcmp(command, "save") == 0) type = C_SAVE;
+    else if (strcmp(command, "quit") == 0) type = C_QUIT;
+    else if (strcmp(command, "draw") == 0) type = C_DRAW;
+    else if (strcmp(command, "load") == 0) type = C_LOAD;
+    return type;
 }
