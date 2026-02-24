@@ -39,6 +39,7 @@ int switchCommand(char *command){
 void StartCompiling(){
     char *command;
     int type = -1;
+    fprintf(nasm_ptr, "section .data\n\tmem times 256 db 0\nsection .text\n");
     while ((command = readWord(src_ptr)) != NULL){
         type = switchCommand(command);
 
