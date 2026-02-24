@@ -19,7 +19,7 @@ enum commands{
     C_LOAD // "load" is loading all memory from second given from start file
 };
 
-int switchType(char *command){
+int switchCommand(char *command){
     if (strcmp(command, "+") == 0) return C_ADD;
     else if (strcmp(command, "-") == 0) return C_SUB;
     else if (strcmp(command, "=") == 0) return C_EQU;
@@ -40,7 +40,7 @@ void StartCompiling(){
     char *command;
     int type = -1;
     while ((command = readWord(src_ptr)) != NULL){
-        type = switchType(command);
+        type = switchCommand(command);
 
         switch (type){
             case C_ADD: {
