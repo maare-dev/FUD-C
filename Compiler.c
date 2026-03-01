@@ -128,13 +128,19 @@ void StartCompiling(){
 					case 1: {
 						fprintf(
 							nasm_ptr, 
-							"mov bl, [mem + %d]", 
+							"mov bl, [mem + %d]\n", 
 							(uint8_t)(atoi(readWord(src_ptr)))
 						);
 						value = "bl";
 						break;
 					}
 					case 2: {
+						fprintf(
+							nasm_ptr,
+							"mov cl, [mem + %d]\nmov bl, [mem + cl]\n",
+							(uint8_t)(atoi(readWord(src_ptr)))
+						);
+						value = "bl";
 						break;
 					}
 				}
@@ -147,6 +153,15 @@ void StartCompiling(){
 						fprintf(
 							nasm_ptr, 
 							"mov byte [mem + %d], %s\n",
+							offset1,
+							value
+						);
+						break;
+					}
+					case 2: {
+						fprintf(
+							nasm_ptr,
+							"mov al, [mem + %d]\nmov byte [mem + al], %s\n",
 							offset1,
 							value
 						);
