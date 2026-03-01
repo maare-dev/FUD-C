@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 FILE* SaveOpenFile(
-    FILE *ptr, 
+    FILE *ptr,
     const char *name, 
     const char *mode
 ){

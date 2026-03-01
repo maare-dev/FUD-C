@@ -1,2 +1,2 @@
-todo: create files with x11 functions
 todo: write nasm commands for each FUD command
+todo: check that modified cell is/isn't special
