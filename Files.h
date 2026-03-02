@@ -1,3 +1,5 @@
+#ifndef FILES_H
+#define FILES_H
 #include <stdio.h>
 FILE* SaveOpenFile(
     FILE *ptr, 
@@ -5,3 +7,4 @@ FILE* SaveOpenFile(
     const char *mode);
 
 char* readWord(FILE *ptr);
+#endif

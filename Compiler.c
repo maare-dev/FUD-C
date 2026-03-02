@@ -41,18 +41,21 @@ uint8_t switchCommand(char *command){
 }
 
 uint8_t switchDataType(char *type){
-	if (strcmp(type, "b") == 0) return 0;
-	if (strcmp(type, "c") == 0) return 1;
-	if (strcmp(type, "cc") == 0) return 2;
+	if (strcmp(type, "b") == 0) free(type); return 0;
+	if (strcmp(type, "c") == 0) free(type); return 1;
+	if (strcmp(type, "cc") == 0) free(type); return 2;
+	free(type);
 	return -1;
 }
 
 void StartCompiling(){
 	char *command;
 	uint8_t type = -1;
-	fprintf(nasm_ptr, "section .data\n\tmem times 256 db 0\nsection .text\n");
+	fprintf(nasm_ptr, "section .data\n\tmem times 256 db 0\nsection .text\n_afterLoad:\n");
 	while ((command = readWord(src_ptr)) != NULL){
 		type = switchCommand(command);
+		char *arg = NULL;
+		char *arg2 = NULL;
 
 		switch (type){
 			case C_ADD: {
@@ -63,18 +66,20 @@ void StartCompiling(){
 						exit(1);
 					}
 					case 1: {
+						arg = readWord(src_ptr);
 						fprintf(
 							nasm_ptr,
 							"inc byte [mem + %d]\n",
-							(uint8_t)(atoi(readWord(src_ptr)))
+							(uint8_t)(atoi(arg))
 						);
 						break;
 					}
 					case 2: {
+						arg = readWord(src_ptr);
 						fprintf(
 							nasm_ptr,
 							"mov al, [mem + %d]\ninc byte [mem + al]\n",
-							(uint8_t)(atoi(readWord(src_ptr)))
+							(uint8_t)(atoi(arg))
 						);
 						break;
 					}
@@ -93,18 +98,20 @@ void StartCompiling(){
 						exit(1);
 					}
 					case 1: {
+						arg = readWord(src_ptr);
 						fprintf(
 							nasm_ptr,
 							"dec byte [mem + %d]\n",
-							(uint8_t)(atoi(readWord(src_ptr)))
+							(uint8_t)(atoi(arg))
 						);
 						break;
 					}
 					case 2: {
+						arg = readWord(src_ptr);
 						fprintf(
 							nasm_ptr,
 							"mov al, [mem + %d]\ndec byte [mem + al]\n",
-							(uint8_t)(atoi(readWord(src_ptr)))
+							(uint8_t)(atoi(arg))
 						);
 						break;
 					}
@@ -117,31 +124,41 @@ void StartCompiling(){
 			}
 			case C_EQU: {
 				uint8_t DT1 = switchDataType(readWord(src_ptr));
-				uint8_t offset1 = (uint8_t)(atoi(readWord(src_ptr)));
+				arg = readWord(src_ptr);
+				uint8_t offset1 = (uint8_t)(atoi(arg));
 				uint8_t DT2 = switchDataType(readWord(src_ptr));
 				char *value;
+				char value_buf[4]; // 256 -> '2' '5' '6' '\0'
 				switch (DT2){
 					case 0: {
-						itoa(value, (uint8_t)(atoi(readWord(src_ptr))), 10);
+						arg2 = readWord(src_ptr);
+						itoa((uint8_t)(atoi(arg)), value_buf, 10);
+						value = &value_buf[0];
 						break;
 					}
 					case 1: {
+						arg2 = readWord(src_ptr);
 						fprintf(
 							nasm_ptr, 
 							"mov bl, [mem + %d]\n", 
-							(uint8_t)(atoi(readWord(src_ptr)))
+							(uint8_t)(atoi(arg))
 						);
 						value = "bl";
 						break;
 					}
 					case 2: {
+						arg2 = readWord(src_ptr);
 						fprintf(
 							nasm_ptr,
 							"mov cl, [mem + %d]\nmov bl, [mem + cl]\n",
-							(uint8_t)(atoi(readWord(src_ptr)))
+							(uint8_t)(atoi(arg))
 						);
 						value = "bl";
 						break;
+					}
+					default: {
+						fprintf(stderr, "ERR: unknown second data type in \"=\"");
+						exit(1);
 					}
 				}
 				switch (DT1){
@@ -209,5 +226,7 @@ void StartCompiling(){
 			}
 		}
 		free(command);
+		free(arg);
+		free(arg2);
 	}
 }
